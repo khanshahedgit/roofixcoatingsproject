@@ -6,6 +6,7 @@ import { COMPANY, NAV_LINKS } from "./site-data";
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const light = !scrolled && !open;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -31,11 +32,11 @@ export default function Header() {
     >
       <Container>
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
-          <a href="#home" className="min-w-0" onClick={() => setOpen(false)}>
+          <a href="#home" className={`min-w-0 ${light ? "text-background" : ""}`} onClick={() => setOpen(false)}>
             <span className="block font-display text-lg leading-none font-bold tracking-tight sm:text-xl">
               {COMPANY.name}
             </span>
-            <span className="mt-1 block truncate text-[0.62rem] font-semibold tracking-[0.2em] text-muted-foreground uppercase">
+            <span className={`mt-1 block truncate text-[0.62rem] font-semibold tracking-[0.2em] uppercase ${light ? "text-background/70" : "text-muted-foreground"}`}>
               {COMPANY.descriptor}
             </span>
           </a>
@@ -46,7 +47,7 @@ export default function Header() {
                 <a
                   key={l.href}
                   href={l.href}
-                  className="relative text-[0.82rem] font-semibold text-foreground/80 transition-colors hover:text-accent"
+                  className={`relative text-[0.82rem] font-semibold transition-colors hover:text-accent ${light ? "text-background/90" : "text-foreground/80"}`}
                 >
                   {l.label}
                 </a>
@@ -71,17 +72,17 @@ export default function Header() {
                 <motion.span
                   animate={open ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
                   transition={{ duration: 0.25 }}
-                  className="absolute top-0 left-0 block h-[1.5px] w-6 bg-foreground"
+                  className={`absolute top-0 left-0 block h-[1.5px] w-6 ${light ? "bg-background" : "bg-foreground"}`}
                 />
                 <motion.span
                   animate={open ? { opacity: 0 } : { opacity: 1 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute top-[6px] left-0 block h-[1.5px] w-6 bg-foreground"
+                  className={`absolute top-[6px] left-0 block h-[1.5px] w-6 ${light ? "bg-background" : "bg-foreground"}`}
                 />
                 <motion.span
                   animate={open ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
                   transition={{ duration: 0.25 }}
-                  className="absolute top-[12px] left-0 block h-[1.5px] w-6 bg-foreground"
+                  className={`absolute top-[12px] left-0 block h-[1.5px] w-6 ${light ? "bg-background" : "bg-foreground"}`}
                 />
               </span>
             </button>
