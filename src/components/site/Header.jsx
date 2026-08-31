@@ -27,7 +27,7 @@ export default function Header() {
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
           ? "border-b border-border bg-background/92 py-2.5 shadow-[0_1px_20px_-12px_oklch(0.25_0.02_60/0.35)] backdrop-blur-md"
-          : "border-b border-transparent py-4"
+          : `border-b py-4 ${open ? "border-border bg-background" : "border-transparent"}`
       }`}
     >
       <Container>
