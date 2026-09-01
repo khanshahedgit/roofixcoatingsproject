@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 /**
  * Lightweight, dependency-free before/after image comparison slider.
