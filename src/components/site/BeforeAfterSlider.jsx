@@ -15,6 +15,7 @@ export default function BeforeAfterSlider({
   const [pos, setPos] = useState(initial);
   const frameRef = useRef(null);
   const draggingRef = useRef(false);
+  const [dragging, setDragging] = useState(false);
 
   const setFromClientX = useCallback((clientX) => {
     const el = frameRef.current;
