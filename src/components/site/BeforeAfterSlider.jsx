@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 /**
  * Lightweight, dependency-free before/after image comparison slider.
@@ -14,6 +15,7 @@ export default function BeforeAfterSlider({
   const [pos, setPos] = useState(initial);
   const frameRef = useRef(null);
   const draggingRef = useRef(false);
+  const [dragging, setDragging] = useState(false);
 
   const setFromClientX = useCallback((clientX) => {
     const el = frameRef.current;
@@ -25,6 +27,7 @@ export default function BeforeAfterSlider({
 
   const onPointerDown = (e) => {
     draggingRef.current = true;
+    setDragging(true);
     e.currentTarget.setPointerCapture?.(e.pointerId);
     setFromClientX(e.clientX);
   };
@@ -36,6 +39,7 @@ export default function BeforeAfterSlider({
 
   const endDrag = () => {
     draggingRef.current = false;
+    setDragging(false);
   };
 
   const onKeyDown = (e) => {
@@ -71,7 +75,9 @@ export default function BeforeAfterSlider({
 
       {/* AFTER image (clipped on top) */}
       <div
-        className="pointer-events-none absolute inset-0"
+        className={`pointer-events-none absolute inset-0 ${
+          dragging ? "" : "transition-[clip-path] duration-300 ease-out"
+        }`}
         style={{ clipPath: `inset(0 0 0 ${pos}%)` }}
       >
         <img
@@ -93,13 +99,14 @@ export default function BeforeAfterSlider({
 
       {/* Divider + handle */}
       <div
-        className="pointer-events-none absolute top-0 bottom-0 w-px bg-background/85"
+        className={`pointer-events-none absolute top-0 bottom-0 w-px bg-background/85 ${
+          dragging ? "" : "transition-[left] duration-300 ease-out"
+        }`}
         style={{ left: `${pos}%` }}
       >
-        <div className="absolute top-1/2 left-1/2 grid h-12 w-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-border-strong bg-background text-sm font-semibold text-foreground shadow-elegant sm:h-14 sm:w-14">
-          <span aria-hidden="true" className="tracking-tight">
-            ← →
-          </span>
+        <div className="absolute top-1/2 left-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center gap-0.5 rounded-full border border-border-strong bg-background text-foreground shadow-elegant sm:h-13 sm:w-13">
+          <ChevronLeft aria-hidden="true" className="h-4 w-4 sm:h-[1.15rem] sm:w-[1.15rem]" />
+          <ChevronRight aria-hidden="true" className="h-4 w-4 sm:h-[1.15rem] sm:w-[1.15rem]" />
         </div>
       </div>
     </div>
