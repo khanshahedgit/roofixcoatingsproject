@@ -93,13 +93,14 @@ export default function BeforeAfterSlider({
 
       {/* Divider + handle */}
       <div
-        className="pointer-events-none absolute top-0 bottom-0 w-px bg-background/85"
+        className={`pointer-events-none absolute top-0 bottom-0 w-px bg-background/85 ${
+          dragging ? "" : "transition-[left] duration-300 ease-out"
+        }`}
         style={{ left: `${pos}%` }}
       >
-        <div className="absolute top-1/2 left-1/2 grid h-12 w-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-border-strong bg-background text-sm font-semibold text-foreground shadow-elegant sm:h-14 sm:w-14">
-          <span aria-hidden="true" className="tracking-tight">
-            ← →
-          </span>
+        <div className="absolute top-1/2 left-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center gap-0.5 rounded-full border border-border-strong bg-background text-foreground shadow-elegant sm:h-13 sm:w-13">
+          <ChevronLeft aria-hidden="true" className="h-4 w-4 sm:h-[1.15rem] sm:w-[1.15rem]" />
+          <ChevronRight aria-hidden="true" className="h-4 w-4 sm:h-[1.15rem] sm:w-[1.15rem]" />
         </div>
       </div>
     </div>
