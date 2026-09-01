@@ -75,7 +75,9 @@ export default function BeforeAfterSlider({
 
       {/* AFTER image (clipped on top) */}
       <div
-        className="pointer-events-none absolute inset-0"
+        className={`pointer-events-none absolute inset-0 ${
+          dragging ? "" : "transition-[clip-path] duration-300 ease-out"
+        }`}
         style={{ clipPath: `inset(0 0 0 ${pos}%)` }}
       >
         <img
