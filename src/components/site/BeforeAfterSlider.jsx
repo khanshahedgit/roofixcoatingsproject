@@ -27,6 +27,7 @@ export default function BeforeAfterSlider({
 
   const onPointerDown = (e) => {
     draggingRef.current = true;
+    setDragging(true);
     e.currentTarget.setPointerCapture?.(e.pointerId);
     setFromClientX(e.clientX);
   };
@@ -38,6 +39,7 @@ export default function BeforeAfterSlider({
 
   const endDrag = () => {
     draggingRef.current = false;
+    setDragging(false);
   };
 
   const onKeyDown = (e) => {
